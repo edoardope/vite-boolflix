@@ -1,13 +1,15 @@
 <script>
-
 export default {
     name: "SeriesBox",
-    props: ['dettagliSeries'],
+    props: ["dettagliSeries"],
     data() {
         return {
             lang: "",
-            langsrc: ""
-        }
+            langsrc: "",
+            showImage: false,
+            imgshow: "",
+            textshow: ""
+        };
     },
     mounted() {
         this.adattamentolang();
@@ -18,25 +20,38 @@ export default {
             if (this.dettagliSeries.original_language.toUpperCase() === "EN") {
                 this.lang = "GB";
             } else if (this.dettagliSeries.original_language.toUpperCase() === "JA") {
-                this.lang = "JP"
+                this.lang = "JP";
             } else {
-                this.lang = this.dettagliFilm.original_language.toUpperCase();
+                this.lang = this.dettagliSeries.original_language.toUpperCase();
             }
-        }
+        },
+        imgshowtrue() {
+            this.imgshow = "imgshow"
+            this.textshow = "textshow"
+        },
+        imgshowfalse() {
+            this.imgshow = ""
+            this.textshow = ""
+        },
     }
-}
+};
 </script>
 
 <template>
-    <div id="seriesmbox" class="text-center">
-        <span class="h4">Titolo:</span>
-        <span>{{ dettagliSeries.name }}</span>
-        <span class="h4">Titolo originale:</span>
-        <span>{{ dettagliSeries.original_name }}</span>
-        <span class="h4">Lingua:</span>
-        <span><img :src="langsrc"></span>
-        <span class="h4">Voto:</span>
-        <span>{{ dettagliSeries.vote_average }}</span>
+    <div id="seriesmbox" class="text-center" @mouseenter="imgshowtrue()" @mouseleave="imgshowfalse()">
+        <div class="hover-container" :class="textshow">
+            <span class="h4">Titolo:</span>
+            <span>{{ dettagliSeries.name }}</span>
+            <span class="h4">Titolo originale:</span>
+            <span>{{ dettagliSeries.original_name }}</span>
+            <span class="h4">Lingua:</span>
+            <span><img :src="langsrc"></span>
+            <span class="h4">Voto:</span>
+            <span>{{ dettagliSeries.vote_average }}</span>
+        </div>
+        <div id="imgcont" :class="imgshow">
+            <img src="https://image.tmdb.org/t/p/w500/a79slhzBzqMq1YG6PereCAGUfAN.jpg" alt="" />
+        </div>
     </div>
 </template>
 
@@ -49,5 +64,31 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: center;
+
+    .hover-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+    }
+
+    .textshow {
+        display: none !important;
+    }
+
+    .imgshow {
+        display: block !important;
+    }
+
+    #imgcont {
+        height: 100%;
+        display: none;
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
 }
 </style>
