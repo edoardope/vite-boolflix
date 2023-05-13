@@ -22,6 +22,8 @@ export default {
   },
   methods: {
     searchFilm() {
+      store.SearchedFilm = [];
+      store.SearchedSeries = [];
       axios.get(`https://api.themoviedb.org/3/search/movie?api_key=1b27b7a0a1bb558320f18122890eab97&query=${this.store.searchText}`)
         .then(res => {
           console.log(res.data.results);

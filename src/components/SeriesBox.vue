@@ -8,12 +8,15 @@ export default {
             langsrc: "",
             showImage: false,
             imgshow: "",
-            textshow: ""
+            textshow: "",
+            imgLink: `https://image.tmdb.org/t/p/w500/${this.dettagliSeries.backdrop_path}`,
+            convertedVote: ""
         };
     },
     mounted() {
         this.adattamentolang();
         this.langsrc = `https://flagsapi.com/${this.lang}/shiny/64.png`;
+        this.convertVote()
     },
     methods: {
         adattamentolang() {
@@ -33,6 +36,9 @@ export default {
             this.imgshow = ""
             this.textshow = ""
         },
+        convertVote() {
+            this.convertedVote = Math.ceil(this.dettagliSeries.vote_average / 2);
+        },
     }
 };
 </script>
@@ -47,10 +53,14 @@ export default {
             <span class="h4">Lingua:</span>
             <span><img :src="langsrc"></span>
             <span class="h4">Voto:</span>
-            <span>{{ dettagliSeries.vote_average }}</span>
+            <span><i class="fa-sharp fa-star" :class="convertedVote >= 1 ? 'fa-solid' : 'fa-regular'"></i>
+                <i class="fa-sharp fa-star" :class="convertedVote >= 2 ? 'fa-solid' : 'fa-regular'"></i><i
+                    class="fa-sharp fa-star" :class="convertedVote >= 3 ? 'fa-solid' : 'fa-regular'"></i><i
+                    class="fa-sharp fa-star" :class="convertedVote >= 4 ? 'fa-solid' : 'fa-regular'"></i><i
+                    class="fa-sharp fa-star" :class="convertedVote >= 5 ? 'fa-solid' : 'fa-regular'"></i></span>
         </div>
         <div id="imgcont" :class="imgshow">
-            <img src="https://image.tmdb.org/t/p/w500/a79slhzBzqMq1YG6PereCAGUfAN.jpg" alt="" />
+            <img :src="imgLink" alt="" />
         </div>
     </div>
 </template>
@@ -66,23 +76,23 @@ export default {
     justify-content: center;
 
     .hover-container {
-        display: flex;
+        display: none;
         flex-direction: column;
         justify-content: center;
 
     }
 
-    .textshow {
+    .imgshow {
         display: none !important;
     }
 
-    .imgshow {
-        display: block !important;
+    .textshow {
+        display: flex !important;
     }
 
     #imgcont {
         height: 100%;
-        display: none;
+        display: block;
 
         img {
             width: 100%;
