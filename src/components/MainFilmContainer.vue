@@ -27,6 +27,7 @@ export default {
 </script>
 
 <template>
+    <span class="text-white h3">Film:</span>
     <div id="maincontf" @wheel.prevent="scrollHorizzontale($event, 'maincontf')">
         <FilmBox v-for="(element, index) in this.store.SearchedFilm" :key="index" :filmIndex="index"
             :dettagliFilm="element" />
@@ -34,9 +35,17 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+span {
+    display: block;
+    background-color: black;
+    margin-bottom: 0px;
+    padding-left: 80px;
+    padding-top: 100px;
+}
+
 #maincontf {
-    height: 45vh;
-    background-color: blue;
+    height: 500px;
+    background-color: black;
     padding: 5vh;
     display: flex;
     justify-content: space-between;

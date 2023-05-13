@@ -70,13 +70,13 @@ export default {
 
 <style lang="scss" scoped>
 #filmbox {
-    min-width: calc(90% / 6);
-    margin-left: 2%;
+    min-width: 300px;
     height: 100%;
     border: 1px solid black;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    background-color: white;
 
     .hover-container {
         display: none;
